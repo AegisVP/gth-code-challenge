@@ -3,6 +3,7 @@
 ## Getting started
 
 ### Install Silverstripe Dependencies via Composer
+
 ```
 docker run --rm --interactive --tty \
   --volume $PWD/silverstripe:/app \
@@ -10,28 +11,35 @@ docker run --rm --interactive --tty \
 ```
 
 ### Docker Compose
-MySQL and Silverstripe can be started via Docker. Run the following Terminal command from this folder. 
 
-*Note: If you are using an ARM Mac, you need to comment in line `platform: linux/amd64 #enable if M1 Mac` in `docker-compose.yml`.*
+MySQL and Silverstripe can be started via Docker. Run the following Terminal command from this folder.
+
+_Note: If you are using an ARM Mac, you need to comment in line `platform: linux/amd64 #enable if M1 Mac` in
+`docker-compose.yml`._
 
 ```
 docker compose up
 ```
 
 After startup you should have the following endpoints available:
-* SilverStripe CMS (Port: 8080)
-* Adminer (Port: 8081)
+
+- SilverStripe CMS (Port: 8080)
+- Adminer (Port: 8081)
 
 ## SilverStripe
+
 When starting up the first time, please clear cache and build database model, before you log into the administration.
 
 ### Clear Cache
-* [http://localhost:8080/?flush](http://localhost:8080/?flush)
+
+- [http://localhost:8080/?flush](http://localhost:8080/?flush)
 
 ### Build Database Model
-* [http://localhost:8080/dev/build](http://localhost:8080/dev/build)
+
+- [http://localhost:8080/dev/build](http://localhost:8080/dev/build)
 
 ### SilverStripe Administration
+
 SilverStripe Administration is available at [http://localhost:8080/admin](http://localhost:8080/admin)
 
 User: `admin`
@@ -39,86 +47,101 @@ User: `admin`
 Password: `admin`
 
 ## Adminer
-Adminer is a lightweight MySQL database browser. Open [http://localhost:8081/?server=db&username=root&db=gth](http://localhost:8081/?server=db&username=root&db=gth) to browse.
-Username and Password is: `root`
+
+Adminer is a lightweight MySQL database browser. Open
+[http://localhost:8081/?server=db&username=root&db=gth](http://localhost:8081/?server=db&username=root&db=gth) to
+browse. Username and Password is: `root`
 
 ## React
+
 New (empty) app was created with `create-react-app`. Use `yarn` or `npm` to install dependencies.
 
 ## Docs & Tutorials
 
 ### Silverstripe
 
-* [Introduction to the Data Model and ORM](https://docs.silverstripe.org/en/4/developer_guides/model/data_model_and_orm/)
-* [Introduction to ModelAdmin
-](https://www.silverstripe.org/learn/lessons/v4/introduction-to-modeladmin-1)
-* [RestAPI Extension](https://github.com/silverstripe/silverstripe-restfulserver)
-
+- [Introduction to the Data Model and ORM](https://docs.silverstripe.org/en/4/developer_guides/model/data_model_and_orm/)
+- [Introduction to ModelAdmin ](https://www.silverstripe.org/learn/lessons/v4/introduction-to-modeladmin-1)
+- [RestAPI Extension](https://github.com/silverstripe/silverstripe-restfulserver)
 
 ### React
-* [Create React App](https://create-react-app.dev/)
-* Package: [react-signature-canvas](https://www.npmjs.com/package/react-signature-canvas)
-* [Proxying API Requests in Development](https://create-react-app.dev/docs/proxying-api-requests-in-development/)
+
+- [Create React App](https://create-react-app.dev/)
+- Package: [react-signature-canvas](https://www.npmjs.com/package/react-signature-canvas)
+- [Proxying API Requests in Development](https://create-react-app.dev/docs/proxying-api-requests-in-development/)
 
 ## Helpful Tools
-* [base64-to-image-converter](https://codebeautify.org/base64-to-image-converter)
-* [CORS Issues?](https://create-react-app.dev/docs/proxying-api-requests-in-development/)
 
+- [base64-to-image-converter](https://codebeautify.org/base64-to-image-converter)
+- [CORS Issues?](https://create-react-app.dev/docs/proxying-api-requests-in-development/)
 
 # Challenge
-## Schritt 1
-Erstellen Sie ein Silverstripe (PHP) Backend Datenmodell zur Speicherung der Sendungsinformationen (Paketnummer, Name des Empfängers, …) 
 
-Erstellen Sie eine Klasse Parcel vom Typ `SilverStripe\ORM\DataObject`.
+## Step 1
 
-Definieren Sie folgende Datenbankattribute:
-* `ParcelReferenceId` vom Typ `Varchar`
-* `RecipientName` vom Typ `Varchar`
-* `RecipientSignature` vom Typ `Text` (Signatur soll als PNG File und Base64 Kodierung in der Datenbank gespeichert werden)
-* `DeliveryTimestamp` vom Typ `Datetime`
-Geben Sie über die Funktion `getCMSFields()` für jedes Datenbankattribut geeignete SilverStripe Formfelder zurück
+Create a Silverstripe (PHP) backend data model to store the shipment information (package number, recipient name, ...)
 
-Definieren Sie folgende Felder als SilverStripe `summary_fields`:
-* `ParcelReferenceId`
-* `RecipientName`
-* `DeliveryTimestamp`
+Create a Parcel class of type `SilverStripe\ORM\DataObject`.
 
-Erweitern Sie den `ModelAdmin`, sodass Ihre Klasse `Parcel` in der Administrationsoberfläche angezeigt wird. ([Tipp!](https://docs.silverstripe.org/en/4/developer_guides/customising_the_admin_interface/))
+Define the following database attributes:
 
-Rufen Sie den SilverStripe [Build](http://localhost:8080/dev/build) und [Flush](http://localhost:8080/?flush) Mechanismus auf und verifizieren Sie, dass Ihr Typ in der Datenbank angelegt wurde und im SilverStripe Admin erscheint.
+- `ParcelReferenceId` of type `Varchar`
+- `RecipientName` of type `Varchar`
+- `RecipientSignature` of type `Text` (signature should be saved as PNG file and Base64 encoding in the database)
+- `DeliveryTimestamp` of type `Datetime` Return appropriate SilverStripe form fields for each database attribute using
+  the `getCMSFields()` function
 
-Erstellen Sie eine Sendung mit einer beliebigen `ParcelReferenceId`.
+Define the following fields as SilverStripe `summary_fields`:
 
+- `ParcelReferenceId`
+- `RecipientName`
+- `DeliveryTimestamp`
 
-## Schritt 2
-Erstellen Sie eine JSON Rest-Schnittstelle in Silverstripe, welche die Sendungen listet und eine Aktualisierung der Sendungsinformationen zulässt.
+Expand the `ModelAdmin` so that your class `Parcel` is visible in the administration interface.
+([Tip!](https://docs.silverstripe.org/en/4/developer_guides/customizing_the_admin_interface/))
 
-Stellen Sie die Klasse `Parcel` als REST-Schnittstelle zur Verfügung.
-Entnehmen Sie der Dokumentation von [restfulserver](https://github.com/silverstripe/silverstripe-restfulserver), wie Sie die Klasse `Parcel` (Schritt 1) als Schnittstelle freischalten können.
+Call the SilverStripe [Build](http://localhost:8080/dev/build) and [Flush](http://localhost:8080/?flush) mechanism and
+verify that your type has been created in the database and appears in the SilverStripe Admin.
 
-Verifizieren Sie, dass der Endpunkt
+Create a shipment with any `ParcelReferenceId`.
+
+## Step 2
+
+Create a JSON rest interface in Silverstripe that lists the shipments and allows the shipment information to be updated.
+
+Expose the `Parcel` class as a REST interface. See the
+[restfulserver](https://github.com/silverstripe/silverstripe-restfulserver) documentation for how to enable the `Parcel`
+class (step 1) as an interface.
+
+Verify that endpoint
+
 ```
 GET http://localhost:8080/api/v1/Parcel
 ```
 
-verfügbar ist.
+is available.
 
+## Step 3
 
-## Schritt 3
-Erstellen Sie eine React Applikation, ähnlich wie im Wireframe abgebildet, welche Empfängername und Unterschrift einer Sendung an die Schnittstelle aus Schritt 2 übermittelt.
+Create a React application, similar to the one shown in the wireframe, which transmits the recipient name and signature
+of a shipment to the interface from step 2.
 
-`create-react-app` wurde zur Erstellung des Ordners `react-frontend` verwendet und ist startfähig. (https://github.com/facebook/create-react-app)
+`create-react-app` was used to create the `react-frontend` folder and is bootable.
+(https://github.com/facebook/create-react-app)
 
-Installieren Sie das npm Package `axios` für die Schnittstellenkommunikation mit dem SilverStripe Backend.
+Install the npm package `axios` for interface communication with the SilverStripe backend.
 
-Installieren Sie das npm Package `react-signature-canvas`, welches eine fertige React-Komponente mit einem Unterschriftfeld beinhaltet.
+Install the npm package `react-signature-canvas`, which includes a ready-made react component with a signature field.
 
-Nutzen Sie `axios`, um die Informationen der ersten Lieferung über die Schnittstelle abzufragen.
+Use `axios` to query the information of the first delivery via the interface.
 
-_TIPP: Um CORS Problemen vorzubeugen, nutzen Sie das Proxy Attribut in der package.json_
+_TIP: To prevent CORS problems, use the proxy attribute in the package.json_
 
-In ein Textfeld kann der Name des Empfängers eingetragen werden, darunter fügen Sie die Unterschrift-Komponente und einen Button „Paketübernahme übermitteln“ ein.
+The name of the recipient can be entered in a text field, below which you insert the signature component and a button
+"Send package acceptance".
 
-Bei Klick auf den Button wird der Name des Empfängers und die Unterschrift der PNG Bilddatei base64 encoded über einen PUT Request in das Backend übertragen. Zusätzlich wird das Attribut DeliveryTimestamp mit aktueller Zeit befüllt.
+When you click the button, the name of the recipient and the signature of the PNG image file are base64 encoded and
+transferred to the backend via a PUT request. In addition, the DeliveryTimestamp attribute is filled with the current
+time.
 
-Verifizieren Sie, dass die Daten korrekt in das SilverStripe Backoffice übermittelt wurden.
+Verify that the data was correctly submitted to the SilverStripe back office.
