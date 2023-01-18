@@ -3,15 +3,16 @@ import { NewParcelForm } from 'components/NewParcelForm/NewParcelForm';
 import { ParcelList } from 'components/ParcelsList/ParcelsList';
 import { useEffect, useState } from 'react';
 
+axios.defaults.baseUrl = 'http://silverstripe.localhost/silverstripe/public';
+axios.defaults.auth = { username: 'admin', password: 'admin' };
+axios.defaults.headers = { 'Content-Type': 'application/json', Accept: 'application/json' };
+
 export default function App() {
   const [parcels, setParcels] = useState([]);
 
   useEffect(() => {
     axios
-      .get('http://silverstripe.localhost/silverstripe/public/api/v1/Parcel', {
-        auth: { username: 'admin', password: 'admin' },
-        headers: { Accept: 'application/json' },
-      })
+      .get('/api/v1/Parcel')
       .then(res => {
         if (res.status === 200) return res.data;
       })
@@ -37,16 +38,3 @@ export default function App() {
     </div>
   );
 }
-
-/*
-
-ClassName: "Parcel"
-Created: "2023-01-18 15:02:23"
-DeliveryTimestamp: "2023-01-01"
-ID: 1
-LastEdited: "2023-01-18 15:07:59"
-ParcelReferenceId: "Vlad001"
-RecipientName: "Vlad P 1"
-RecipientSignature: "iVBORw0KGgoAAAANSUhEUgAACgAAAAoACAIAAADyNuyPAAAAC
-
-*/

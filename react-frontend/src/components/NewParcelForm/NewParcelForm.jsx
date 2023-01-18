@@ -19,10 +19,7 @@ export const NewParcelForm = () => {
       RecipientSignature: sigPad.toDataURL('text/html'),
     };
 
-    axios.post('http://silverstripe.localhost/silverstripe/public/api/v1/Parcel', preparedData, {
-      auth: { username: 'admin', password: 'admin' },
-      headers: { 'Content-Type': 'application/json' },
-    });
+    axios.post('/api/v1/Parcel', preparedData);
   };
 
   return (
