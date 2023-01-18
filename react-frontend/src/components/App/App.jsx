@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { NewParcelForm } from 'components/NewParcelForm/NewParcelForm';
 import { ParcelList } from 'components/ParcelsList/ParcelsList';
 import { useEffect, useState } from 'react';
 
@@ -27,9 +28,12 @@ export default function App() {
   }, []);
 
   return (
-    <div className="App">
-      <h1>Paketübernahme</h1>
-      <ParcelList parcels={parcels} />
+    <div className="flex justify-start gap-4">
+      <div className="flex flex-col gap-4 border w-[300px]">
+        <h1 className="text-2xl font-bold">Paketübernahme</h1>
+        <ParcelList className="border" parcels={parcels} />
+      </div>
+      <NewParcelForm />
     </div>
   );
 }
